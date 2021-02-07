@@ -8,7 +8,7 @@ npm i -g jenkins-cli-view
 
 ## Configuration
 
-Add a file to `.jenkins-cli-view/config.json` containing:
+Add a file to `.jenkins-cli-view/config.json` containing, you can also override the config file in the local directory:
 
 ```json
 {
