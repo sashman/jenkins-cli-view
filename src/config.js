@@ -21,7 +21,7 @@ module.exports = {
     const jenkinsScheme = config.jenkinsScheme || process.env.JENKINS_SCHEME || 'https';
     const jenkinsUsername = encodeURIComponent(config.jenkinsUsername || process.env.JENKINS_USERNAME);
     const jenkinsPassword = encodeURIComponent(config.jenkinsPassword || process.env.JENKINS_PASSWORD);
-    const jenkinsHost = config.jenkinsHost || process.env.JENKINS_URL;
+    const jenkinsHost = config.jenkinsHost || process.env.JENKINS_HOST;
     const jenkinsProject = config.jenkinsProject || process.env.JENKINS_PROJECT;
     
     return {
