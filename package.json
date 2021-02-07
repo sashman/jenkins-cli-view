@@ -1,0 +1,19 @@
+{
+  "name": "jenkins-cli-view",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sashman90@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.21",
+    "date-fns": "^2.16.1",
+    "git-repo-info": "^2.1.1",
+    "jenkins": "^0.28.1",
+    "parse-git-config": "^3.0.0"
+  }
+}
