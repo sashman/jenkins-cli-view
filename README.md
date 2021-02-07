@@ -1,5 +1,11 @@
 # jenkins-cli-view
 
+Install with
+
+```
+npm i -g jenkins-cli-view
+```
+
 ## Configuration
 
 Add a file to `.jenkins-cli-view/config.json` containing:
