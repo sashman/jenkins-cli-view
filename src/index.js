@@ -27,8 +27,6 @@ screen.key(["escape", "q", "C-c"], function (ch, key) {
   return process.exit(0);
 });
 
-screen.render();
-
 function queryBuild() {
   jenkins.job.get(jobName, function (err, data) {
     if (err) throw err;
@@ -66,4 +64,11 @@ function queryBuild() {
   });
 }
 
-setInterval(queryBuild, 1000);
+function start() {
+  screen.render();
+  setInterval(queryBuild, 1000);  
+}
+
+module.exports = {
+  start
+}

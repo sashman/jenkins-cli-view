@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "jenkins-cli-view": "./bin/index.js"
+  },
   "author": "sashman90@gmail.com",
   "license": "ISC",
   "dependencies": {
