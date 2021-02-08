@@ -19,6 +19,8 @@ Add a file to `.jenkins-cli-view/config.json` containing, you can also override 
 }
 ```
 
+*NOTE:* `jenkinsHost` should exclude the scheme. The scheme defaults to `https`
+
 The values are overridable with:
 
 - `JENKINS_SCHEME`
