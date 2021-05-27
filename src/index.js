@@ -1,6 +1,7 @@
 const blessed = require("blessed");
 const contrib = require("blessed-contrib");
 const config = require("./config").getConfig();
+
 const git = require("./git");
 
 const formatDuration = require("date-fns/formatDuration");
@@ -9,14 +10,22 @@ const jenkins = require("jenkins")({
   crumbIssuer: true,
 });
 
-const jobName = `${
-  config.jenkinsProject
-}/${git.getCurrentRepoName()}/${git.getCurrentBranchName()}`;
+const getJobName = () => {
+  if(process.argv.includes("--latest-tag")){
+    return `${
+      config.jenkinsProject
+    }/${git.getCurrentRepoName()}/${git.getLatestTag()}`;  
+  }
+
+  return `${
+    config.jenkinsProject
+  }/${git.getCurrentRepoName()}/${git.getCurrentBranchName()}`;
+}
 
 const screen = blessed.screen();
 const grid = new contrib.grid({ rows: 2, cols: 1, screen: screen });
 
-const titleBox = grid.set(0, 0, 1, 1, blessed.box, { content: "Loading..." });
+const titleBox = grid.set(0, 0, 1, 1, blessed.box, { content: `Loading ${getJobName()}...` });
 const gauge = grid.set(1, 0, 1, 1, contrib.gauge, {
   label: "Progress",
   stroke: "green",
@@ -27,14 +36,17 @@ screen.key(["escape", "q", "C-c"], function (ch, key) {
   return process.exit(0);
 });
 
-function queryBuild() {
+function queryBuilds() {
+
+  const jobName = getJobName()
+
   jenkins.job.get(jobName, function (err, data) {
-    if (err) throw err;
+    if (err) throw `Job Error [${jobName}]: ${err}`;
 
     const { lastBuild } = data;
 
     jenkins.build.get(jobName, lastBuild.number, function (err, data) {
-      if (err) throw err;
+      if (err) throw `Build Error [${jobName}] [${lastBuild.number}]: ${err}`;
       const {
         fullDisplayName,
         estimatedDuration,
@@ -52,7 +64,9 @@ function queryBuild() {
       const percentage = Math.round((elapsedTime / estimatedDuration) * 100);
 
       if (building) {
-        titleBox.setContent(`${fullDisplayName}\nBuilding ${formattedElapsedTime}`);
+        titleBox.setContent(
+          `${fullDisplayName}\nBuilding ${formattedElapsedTime}`
+        );
         gauge.setPercent(percentage);
       } else {
         titleBox.setContent(`${fullDisplayName}\n${result}\n${url}console`);
@@ -66,9 +80,9 @@ function queryBuild() {
 
 function start() {
   screen.render();
-  setInterval(queryBuild, 1000);  
+  setInterval(queryBuilds, 1000);
 }
 
 module.exports = {
-  start
-}
+  start,
+};
