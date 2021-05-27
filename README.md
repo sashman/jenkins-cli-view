@@ -8,7 +8,7 @@ npm i -g jenkins-cli-view
 
 ## Configuration
 
-Add a file to `.jenkins-cli-view/config.json` containing, you can also override the config file in the local directory:
+Add a file to `~/.jenkins-cli-view/config.json` containing, you can also override the config file in the local directory:
 
 ```json
 {
@@ -18,6 +18,8 @@ Add a file to `.jenkins-cli-view/config.json` containing, you can also override 
     "jenkinsHost": "..."
 }
 ```
+
+*NOTE:* `jenkinsHost` should exclude the scheme. The scheme defaults to `https`
 
 The values are overridable with:
 
