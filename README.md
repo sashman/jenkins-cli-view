@@ -36,3 +36,5 @@ In the project directory run:
 ```
 jenkins-cli-view
 ```
+
+You can use `--latest-tag` optional flag to retreive the latest tag in your current repository rather than the current branch.
